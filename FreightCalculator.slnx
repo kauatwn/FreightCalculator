@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FreightCalculator.API/FreightCalculator.API.csproj" />
+    <Project Path="src/FreightCalculator.Application/FreightCalculator.Application.csproj" />
+    <Project Path="src/FreightCalculator.Domain/FreightCalculator.Domain.csproj" />
+    <Project Path="src/FreightCalculator.Infrastructure/FreightCalculator.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FreightCalculator.Application.Tests/FreightCalculator.Application.Tests.csproj" />
+    <Project Path="tests/FreightCalculator.Domain.Tests/FreightCalculator.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
