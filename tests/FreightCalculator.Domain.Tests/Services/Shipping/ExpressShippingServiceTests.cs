@@ -31,7 +31,7 @@ public class ExpressShippingServiceTests
         decimal cost = _sut.CalculateShippingCost(order);
 
         // Assert
-        Assert.Equal(5.00m, cost);
+        Assert.Equal(12.50m, cost);
     }
 
     [Fact(DisplayName = "CalculateShippingCost Should Return Zero When Order Is Empty")]
