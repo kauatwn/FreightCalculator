@@ -6,5 +6,6 @@ namespace FreightCalculator.API.DTOs.Requests;
 public record CreateOrderRequest(
     string CustomerName,
     [property: JsonConverter(typeof(JsonStringEnumConverter))]
+    [property: JsonRequired]
     ShippingMethod ShippingMethod,
     List<CreateOrderItemRequest> Items);
