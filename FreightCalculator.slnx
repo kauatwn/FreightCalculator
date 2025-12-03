@@ -8,5 +8,6 @@
   <Folder Name="/tests/">
     <Project Path="tests/FreightCalculator.Application.Tests/FreightCalculator.Application.Tests.csproj" />
     <Project Path="tests/FreightCalculator.Domain.Tests/FreightCalculator.Domain.Tests.csproj" />
+    <Project Path="tests/FreightCalculator.Infrastructure.Tests/FreightCalculator.Infrastructure.Tests.csproj" Id="58843935-a1ff-4b13-9351-ab1fc49f4cba" />
   </Folder>
 </Solution>
