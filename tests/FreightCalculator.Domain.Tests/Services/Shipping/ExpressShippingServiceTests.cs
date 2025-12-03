@@ -24,8 +24,8 @@ public class ExpressShippingServiceTests
         // Arrange
         Order order = new(customerName: "Test", shippingMethod: ShippingMethod.Express);
 
-        order.AddItem(new OrderItem(productName: "Item A", price: 10m, weight: 2m, quantity: 1));
-        order.AddItem(new OrderItem(productName: "Item B", price: 10m, weight: 3m, quantity: 1));
+        order.AddItem(new OrderItem(productName: "Item A", price: 10.00m, weight: 2m, quantity: 1));
+        order.AddItem(new OrderItem(productName: "Item B", price: 10.00m, weight: 3m, quantity: 1));
 
         // Act
         decimal cost = _sut.CalculateShippingCost(order);
@@ -44,6 +44,6 @@ public class ExpressShippingServiceTests
         decimal cost = _sut.CalculateShippingCost(order);
 
         // Assert
-        Assert.Equal(0m, cost);
+        Assert.Equal(0.00m, cost);
     }
 }

@@ -18,7 +18,7 @@ public class OrderTests
         Assert.Equal(ShippingMethod.Standard, order.ShippingMethod);
         Assert.NotNull(order.Items);
         Assert.Empty(order.Items);
-        Assert.Equal(0, order.Total);
+        Assert.Equal(0.00m, order.Total);
     }
 
     [Fact(DisplayName = "Constructor Should Throw DomainException When Customer Name Is Empty")]
@@ -38,8 +38,8 @@ public class OrderTests
         // Arrange
         Order order = new(customerName: "Client A", shippingMethod: ShippingMethod.Standard);
 
-        OrderItem item1 = new(productName: "Item 1", price: 10m, weight: 1m, quantity: 1);
-        OrderItem item2 = new(productName: "Item 2", price: 20m, weight: 1m, quantity: 2);
+        OrderItem item1 = new(productName: "Item 1", price: 10.00m, weight: 1m, quantity: 1);
+        OrderItem item2 = new(productName: "Item 2", price: 20.00m, weight: 1m, quantity: 2);
 
         // Act
         order.AddItem(item1);
@@ -47,7 +47,7 @@ public class OrderTests
 
         // Assert
         Assert.Equal(2, order.Items.Count);
-        Assert.Equal(50m, order.Total);
+        Assert.Equal(50.00m, order.Total);
     }
 
     [Fact(DisplayName = "AddItem Should Throw DomainException When Item Is Null")]

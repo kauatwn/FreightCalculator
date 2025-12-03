@@ -20,7 +20,7 @@ public class OrderItemTests
 
         Assert.Equal("Test Product", item.ProductName);
         Assert.Equal(price, item.Price);
-        Assert.Equal(1m, item.Weight);
+        Assert.Equal(1.00m, item.Weight);
         Assert.Equal(quantity, item.Quantity);
         Assert.NotEqual(Guid.Empty, item.Id);
     }
@@ -29,7 +29,7 @@ public class OrderItemTests
     public void Constructor_ShouldThrowDomainException_WhenProductNameIsEmpty()
     {
         // Act
-        static void Act() => _ = new OrderItem(productName: string.Empty, price: 10m, weight: 1m, quantity: 1);
+        static void Act() => _ = new OrderItem(productName: string.Empty, price: 10.00m, weight: 1m, quantity: 1);
 
         // Assert
         var exception = Assert.Throws<DomainException>(Act);
@@ -38,7 +38,7 @@ public class OrderItemTests
 
     [Theory(DisplayName = "Constructor Should Throw DomainException When Price Is Invalid")]
     [InlineData(0)]
-    [InlineData(-10.50)]
+    [InlineData(-10.5)]
     public void Constructor_ShouldThrowDomainException_WhenPriceIsInvalid(decimal invalidPrice)
     {
         // Act
@@ -55,7 +55,7 @@ public class OrderItemTests
     public void Constructor_ShouldThrowDomainException_WhenWeightIsInvalid(decimal invalidWeight)
     {
         // Act
-        void Act() => _ = new OrderItem(productName: "Valid Name", price: 10m, weight: invalidWeight, quantity: 1);
+        void Act() => _ = new OrderItem(productName: "Valid Name", price: 10.00m, weight: invalidWeight, quantity: 1);
 
         // Assert
         var exception = Assert.Throws<DomainException>(Act);
@@ -68,7 +68,7 @@ public class OrderItemTests
     public void Constructor_ShouldThrowDomainException_WhenQuantityIsInvalid(int invalidQuantity)
     {
         // Act
-        void Act() => _ = new OrderItem(productName: "Valid Name", price: 10m, weight: 1m, quantity: invalidQuantity);
+        void Act() => _ = new OrderItem(productName: "Valid Name", price: 10.00m, weight: 1m, quantity: invalidQuantity);
 
         // Assert
         var exception = Assert.Throws<DomainException>(Act);
