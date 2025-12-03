@@ -1,12 +1,22 @@
-﻿using FreightCalculator.Domain.Entities;
+﻿using FreightCalculator.Domain.Configuration;
+using FreightCalculator.Domain.Entities;
 using FreightCalculator.Domain.Enums;
 using FreightCalculator.Domain.Services.Shipping;
+using Microsoft.Extensions.Options;
 
 namespace FreightCalculator.Domain.Tests.Services.Shipping;
 
 public class ExpressShippingServiceTests
 {
-    private readonly ExpressShippingService _sut = new();
+    private readonly ExpressShippingService _sut;
+
+    public ExpressShippingServiceTests()
+    {
+        ShippingSettings settings = new() { ExpressCostPerKg = 2.50m };
+        IOptions<ShippingSettings> options = Options.Create(settings);
+
+        _sut = new ExpressShippingService(options);
+    }
 
     [Fact(DisplayName = "CalculateShippingCost Should Calculate Based On Weight")]
     public void CalculateShippingCost_ShouldCalculateBasedOnWeight_WhenOrderHasItems()
