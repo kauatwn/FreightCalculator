@@ -20,7 +20,7 @@ public class OrderItemTests
 
         Assert.Equal("Test Product", item.ProductName);
         Assert.Equal(price, item.Price);
-        Assert.Equal(1.00m, item.Weight);
+        Assert.Equal(1m, item.Weight);
         Assert.Equal(quantity, item.Quantity);
         Assert.NotEqual(Guid.Empty, item.Id);
     }
