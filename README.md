@@ -46,8 +46,10 @@ You can run the application using **Docker** (recommended) or **Locally**.
 2. Run the container:
 
     ```bash
-    docker run -p 8080:8080 freight-calculator
+    docker run --rm -it -p 8080:8080 -e ASPNETCORE_ENVIRONMENT=Development --name freight-calculator freight-calculator
     ```
+
+*The API documentation will be accessible at `http://localhost:8080/swagger`.*
 
 #### Option B: Run Locally
 
@@ -63,7 +65,7 @@ You can run the application using **Docker** (recommended) or **Locally**.
     dotnet run --project src/FreightCalculator.API
     ```
 
-*The API documentation will be available at `/swagger` when running in Development mode.*
+*The API documentation will be accessible at `http://localhost:5276/swagger`.*
 
 ### 4. Execute Tests
 
@@ -106,11 +108,12 @@ The core logic resides entirely within the `Domain` layer.
 
 To avoid complex `if/else` chains for shipping logic, the **Strategy Pattern** was implemented.
 
-| Pattern | Usage Scenario | Implementation |
-|:-------:|:---------------|:---------------|
-| **Strategy** | Calculating costs differently for Standard vs. Express | `IShippingService` implementations |
-| **Factory** | Selecting the correct strategy at runtime | `ShippingServiceFactory` |
-| **Dependency Injection** | Decoupling layers | `IServiceCollection` extensions |
+| Pattern                  | Usage Scenario                                         | Implementation                     |
+|:------------------------:|:------------------------------------------------------:|:-----------------------------------|
+| **Strategy**             | Calculating costs differently for Standard vs. Express | `IShippingService` implementations |
+| **Factory**              | Selecting the correct strategy at runtime              | `ShippingServiceFactory`           |
+| **Options**              | Strongly typed configuration management                | `IOptions<ShippingSettings>`       |
+| **Dependency Injection** | Decoupling layers                                      | `IServiceCollection` extensions    |
 
 ### 3. Test-Driven Development (TDD) Approach
 
