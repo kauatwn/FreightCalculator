@@ -32,7 +32,7 @@ public class CreateOrderUseCaseTests
         CreateOrderRequest request = new(
             CustomerName: "John Doe",
             ShippingMethod: method,
-            Items: [new CreateOrderItemRequest(ProductName: "Item 1", Price: 10.00m, Weight: 1m, Quantity: 1)]
+            Items: [new CreateOrderItemRequest(ProductName: "Item 1", Price: 10.00m, WeightInKg: 1m, Quantity: 1)]
         );
 
         const decimal expectedCost = 15.50m;
