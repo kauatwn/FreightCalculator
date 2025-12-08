@@ -1,42 +1,43 @@
-﻿using FreightCalculator.API.DTOs.Requests;
-using FreightCalculator.API.DTOs.Responses;
+﻿using FreightCalculator.Application.DTOs.Requests;
+using FreightCalculator.Application.DTOs.Responses;
+using FreightCalculator.Application.UseCases.CreateOrder;
 using FreightCalculator.Domain.Common;
-using FreightCalculator.Domain.Entities;
-using FreightCalculator.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreightCalculator.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class OrdersController : ControllerBase
+public partial class OrdersController(ILogger<OrdersController> logger) : ControllerBase
 {
+    private const int DomainValidationEventId = 100;
+    private const int UnexpectedErrorEventId = 500;
+
     [HttpPost]
     [ProducesResponseType<OrderProcessedResponse>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult Create(IOrderService orderService, [FromBody] CreateOrderRequest request)
+    public IActionResult Create(ICreateOrderUseCase useCase, CreateOrderRequest request)
     {
         try
         {
-            Order order = new(request.CustomerName, request.ShippingMethod);
-
-            foreach (CreateOrderItemRequest item in request.Items)
-            {
-                order.AddItem(new OrderItem(item.ProductName, item.Price, item.Weight, item.Quantity));
-            }
-
-            orderService.ProcessOrder(order);
-
-            OrderProcessedResponse response = new(order.Id);
+            OrderProcessedResponse response = useCase.Execute(request);
             return Ok(response);
         }
         catch (DomainException ex)
         {
+            LogDomainValidationFailed(ex.Message);
             return BadRequest(new { error = ex.Message });
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            LogUnexpectedError(ex);
             return StatusCode(500, new { error = "Internal server error." });
         }
     }
+
+    [LoggerMessage(EventId = DomainValidationEventId, Level = LogLevel.Warning, Message = "Domain validation failed: {Reason}")]
+    private partial void LogDomainValidationFailed(string reason);
+
+    [LoggerMessage(EventId = UnexpectedErrorEventId, Level = LogLevel.Error, Message = "An unexpected error occurred while processing the order")]
+    private partial void LogUnexpectedError(Exception ex);
 }
