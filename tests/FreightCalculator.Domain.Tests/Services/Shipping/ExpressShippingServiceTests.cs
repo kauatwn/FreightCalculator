@@ -18,7 +18,7 @@ public class ExpressShippingServiceTests
         _sut = new ExpressShippingService(options);
     }
 
-    [Fact(DisplayName = "CalculateShippingCost Should Calculate Based On Weight")]
+    [Fact(DisplayName = "CalculateShippingCost should calculate based on weight")]
     public void CalculateShippingCost_ShouldCalculateBasedOnWeight_WhenOrderHasItems()
     {
         // Arrange
@@ -34,7 +34,7 @@ public class ExpressShippingServiceTests
         Assert.Equal(17.50m, cost);
     }
 
-    [Fact(DisplayName = "CalculateShippingCost Should Return Zero When Order Is Empty")]
+    [Fact(DisplayName = "CalculateShippingCost should return zero when order is empty")]
     public void CalculateShippingCost_ShouldReturnZero_WhenOrderHasNoItems()
     {
         // Arrange

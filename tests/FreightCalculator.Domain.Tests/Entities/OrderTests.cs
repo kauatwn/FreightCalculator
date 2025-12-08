@@ -6,7 +6,7 @@ namespace FreightCalculator.Domain.Tests.Entities;
 
 public class OrderTests
 {
-    [Fact(DisplayName = "Constructor Should Initialize Correctly When Data Is Valid")]
+    [Fact(DisplayName = "Constructor should initialize correctly when data is valid")]
     public void Constructor_ShouldInitializeCorrectly_WhenDataIsValid()
     {
         // Act
@@ -21,7 +21,7 @@ public class OrderTests
         Assert.Equal(0.00m, order.Total);
     }
 
-    [Fact(DisplayName = "Constructor Should Throw DomainException When Customer Name Is Empty")]
+    [Fact(DisplayName = "Constructor should throw exception when customer name is empty")]
     public void Constructor_ShouldThrowDomainException_WhenCustomerNameIsEmpty()
     {
         // Act
@@ -32,7 +32,7 @@ public class OrderTests
         Assert.Equal(Order.CustomerNameCannotBeEmpty, exception.Message);
     }
 
-    [Fact(DisplayName = "AddItem Should Update Total And Collection Correctly")]
+    [Fact(DisplayName = "AddItem should update total and collection correctly")]
     public void AddItem_ShouldUpdateTotalAndCollection_WhenItemsAreAdded()
     {
         // Arrange
@@ -50,7 +50,7 @@ public class OrderTests
         Assert.Equal(50.00m, order.Total);
     }
 
-    [Fact(DisplayName = "AddItem Should Throw DomainException When Item Is Null")]
+    [Fact(DisplayName = "AddItem should throw exception when item is null")]
     public void AddItem_ShouldThrowDomainException_WhenItemIsNull()
     {
         // Arrange
