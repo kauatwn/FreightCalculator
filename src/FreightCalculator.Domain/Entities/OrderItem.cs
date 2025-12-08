@@ -12,23 +12,23 @@ public class OrderItem
     public Guid Id { get; private set; }
     public string ProductName { get; private set; }
     public decimal Price { get; private set; }
-    public decimal Weight { get; private set; }
+    public decimal WeightInKg { get; private set; }
     public int Quantity { get; private set; }
 
     public decimal Total => Price * Quantity;
 
-    public OrderItem(string productName, decimal price, decimal weight, int quantity)
+    public OrderItem(string productName, decimal price, decimal weightInKg, int quantity)
     {
-        ValidateDomain(productName, price, weight, quantity);
+        ValidateDomain(productName, price, weightInKg, quantity);
 
         Id = Guid.NewGuid();
         ProductName = productName;
         Price = price;
-        Weight = weight;
+        WeightInKg = weightInKg;
         Quantity = quantity;
     }
 
-    private static void ValidateDomain(string productName, decimal price, decimal weight, int quantity)
+    private static void ValidateDomain(string productName, decimal price, decimal weightInKg, int quantity)
     {
         if (string.IsNullOrWhiteSpace(productName))
         {
@@ -40,7 +40,7 @@ public class OrderItem
             throw new DomainException(PriceMustBeGreaterThanZero);
         }
 
-        if (weight <= 0)
+        if (weightInKg <= 0)
         {
             throw new DomainException(WeightMustBeGreaterThanZero);
         }

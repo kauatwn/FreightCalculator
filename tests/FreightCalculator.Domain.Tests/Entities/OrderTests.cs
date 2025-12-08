@@ -38,8 +38,8 @@ public class OrderTests
         // Arrange
         Order order = new(customerName: "Client A", shippingMethod: ShippingMethod.Standard);
 
-        OrderItem item1 = new(productName: "Item 1", price: 10.00m, weight: 1m, quantity: 1);
-        OrderItem item2 = new(productName: "Item 2", price: 20.00m, weight: 1m, quantity: 2);
+        OrderItem item1 = new(productName: "Item 1", price: 10.00m, weightInKg: 1m, quantity: 1);
+        OrderItem item2 = new(productName: "Item 2", price: 20.00m, weightInKg: 1m, quantity: 2);
 
         // Act
         order.AddItem(item1);
