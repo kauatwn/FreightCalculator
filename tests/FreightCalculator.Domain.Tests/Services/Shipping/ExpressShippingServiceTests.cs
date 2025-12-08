@@ -24,14 +24,14 @@ public class ExpressShippingServiceTests
         // Arrange
         Order order = new(customerName: "Test", shippingMethod: ShippingMethod.Express);
 
-        order.AddItem(new OrderItem(productName: "Item A", price: 10.00m, weightInKg: 2m, quantity: 1));
+        order.AddItem(new OrderItem(productName: "Item A", price: 10.00m, weightInKg: 2m, quantity: 2));
         order.AddItem(new OrderItem(productName: "Item B", price: 10.00m, weightInKg: 3m, quantity: 1));
 
         // Act
         decimal cost = _sut.CalculateShippingCost(order);
 
         // Assert
-        Assert.Equal(12.50m, cost);
+        Assert.Equal(17.50m, cost);
     }
 
     [Fact(DisplayName = "CalculateShippingCost Should Return Zero When Order Is Empty")]
