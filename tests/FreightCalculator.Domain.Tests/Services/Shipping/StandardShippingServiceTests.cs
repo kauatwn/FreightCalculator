@@ -18,11 +18,13 @@ public class StandardShippingServiceTests
         _sut = new StandardShippingService(options);
     }
 
-    [Fact(DisplayName = "CalculateShippingCost Should Return Fixed Fee")]
-    public void CalculateShippingCost_ShouldReturnFixedFee_WhenCalled()
+    [Fact(DisplayName = "CalculateShippingCost should return fixed fee")]
+    public void CalculateShippingCost_ShouldReturnFixedFee_WhenOrderHasItems()
     {
         // Arrange
         Order order = new(customerName: "Test", shippingMethod: ShippingMethod.Standard);
+
+        order.AddItem(new OrderItem(productName: "Item A", price: 10.00m, weightInKg: 0.5m, quantity: 5));
 
         // Act
         decimal cost = _sut.CalculateShippingCost(order);

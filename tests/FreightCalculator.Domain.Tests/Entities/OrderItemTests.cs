@@ -5,7 +5,7 @@ namespace FreightCalculator.Domain.Tests.Entities;
 
 public class OrderItemTests
 {
-    [Fact(DisplayName = "Total Should Calculate Price Multiplied By Quantity")]
+    [Fact(DisplayName = "Total should calculate price multiplied by quantity")]
     public void Total_ShouldCalculateCorrectly_WhenValuesAreValid()
     {
         // Arrange
@@ -25,7 +25,7 @@ public class OrderItemTests
         Assert.NotEqual(Guid.Empty, item.Id);
     }
 
-    [Fact(DisplayName = "Constructor Should Throw DomainException When Product Name Is Empty")]
+    [Fact(DisplayName = "Constructor should throw exception when product name is empty")]
     public void Constructor_ShouldThrowDomainException_WhenProductNameIsEmpty()
     {
         // Act
@@ -36,7 +36,7 @@ public class OrderItemTests
         Assert.Equal(OrderItem.ProductNameCannotBeEmpty, exception.Message);
     }
 
-    [Theory(DisplayName = "Constructor Should Throw DomainException When Price Is Invalid")]
+    [Theory(DisplayName = "Constructor should throw exception when price is invalid")]
     [InlineData(0)]
     [InlineData(-10.5)]
     public void Constructor_ShouldThrowDomainException_WhenPriceIsInvalid(decimal invalidPrice)
@@ -49,7 +49,7 @@ public class OrderItemTests
         Assert.Equal(OrderItem.PriceMustBeGreaterThanZero, exception.Message);
     }
 
-    [Theory(DisplayName = "Constructor Should Throw DomainException When Weight Is Invalid")]
+    [Theory(DisplayName = "Constructor should throw exception when weight is invalid")]
     [InlineData(0)]
     [InlineData(-1)]
     public void Constructor_ShouldThrowDomainException_WhenWeightIsInvalid(decimal invalidWeight)
@@ -62,7 +62,7 @@ public class OrderItemTests
         Assert.Equal(OrderItem.WeightMustBeGreaterThanZero, exception.Message);
     }
 
-    [Theory(DisplayName = "Constructor Should Throw DomainException When Quantity Is Invalid")]
+    [Theory(DisplayName = "Constructor should throw exception when quantity is invalid")]
     [InlineData(0)]
     [InlineData(-5)]
     public void Constructor_ShouldThrowDomainException_WhenQuantityIsInvalid(int invalidQuantity)

@@ -13,4 +13,4 @@ public class ExpressShippingService(IOptions<ShippingSettings> options) : IShipp
     {
         return order.Items.Sum(i => i.WeightInKg * i.Quantity) * _costPerKg;
     }
-}   
+}

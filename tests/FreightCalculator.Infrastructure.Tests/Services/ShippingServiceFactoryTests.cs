@@ -16,7 +16,7 @@ public class ShippingServiceFactoryTests
         _sut = new ShippingServiceFactory(_mockResolver.Object);
     }
 
-    [Theory(DisplayName = "GetService Should Return Service When Method Is Valid")]
+    [Theory(DisplayName = "GetService should return service when method is valid")]
     [InlineData(ShippingMethod.Standard)]
     [InlineData(ShippingMethod.Express)]
     public void GetService_ShouldReturnService_WhenMethodIsValid(ShippingMethod method)
