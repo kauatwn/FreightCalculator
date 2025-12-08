@@ -20,7 +20,7 @@ public partial class CreateOrderUseCase(IShippingServiceFactory shippingFactory,
 
         foreach (CreateOrderItemRequest item in request.Items)
         {
-            order.AddItem(new OrderItem(item.ProductName, item.Price, item.Weight, item.Quantity));
+            order.AddItem(new OrderItem(item.ProductName, item.Price, item.WeightInKg, item.Quantity));
         }
 
         LogProcessingStarted(order.Id, order.CustomerName);
