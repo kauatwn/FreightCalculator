@@ -28,7 +28,7 @@ public class OrderServiceTests
     {
         // Arrange
         Order order = new(customerName: "John Doe", shippingMethod: method);
-        order.AddItem(new OrderItem(productName: "Item 1", price: 10m, weight: 1m, quantity: 1));
+        order.AddItem(new OrderItem(productName: "Item 1", price: 10m, weightInKg: 1m, quantity: 1));
 
         const decimal expectedCost = 10.00m;
 
