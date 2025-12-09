@@ -16,6 +16,11 @@ public partial class CreateOrderUseCase(IShippingServiceFactory shippingFactory,
     {
         ArgumentNullException.ThrowIfNull(request);
 
+        if (request.Items is null || request.Items.Count == 0)
+        {
+            throw new ArgumentException("The order must contain at least one item.", nameof(request));
+        }
+
         Order order = new(request.CustomerName, request.ShippingMethod);
 
         foreach (CreateOrderItemRequest item in request.Items)

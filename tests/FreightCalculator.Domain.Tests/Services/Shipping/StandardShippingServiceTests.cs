@@ -32,4 +32,15 @@ public class StandardShippingServiceTests
         // Assert
         Assert.Equal(10.00m, cost);
     }
+
+    [Fact(DisplayName = "CalculateShippingCost should throw ArgumentNullException when order is null")]
+    public void CalculateShippingCost_ShouldThrowArgumentNullException_WhenOrderIsNull()
+    {
+        // Act
+        void Act() => _sut.CalculateShippingCost(null!);
+
+        // Assert
+        var exception = Assert.Throws<ArgumentNullException>(Act);
+        Assert.Equal("order", exception.ParamName);
+    }
 }

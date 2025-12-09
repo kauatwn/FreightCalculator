@@ -11,6 +11,8 @@ public class StandardShippingService(IOptions<ShippingSettings> options) : IShip
 
     public decimal CalculateShippingCost(Order order)
     {
+        ArgumentNullException.ThrowIfNull(order);
+
         return _fixedFee;
     }
 }

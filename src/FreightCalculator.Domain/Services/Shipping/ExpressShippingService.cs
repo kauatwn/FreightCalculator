@@ -11,6 +11,8 @@ public class ExpressShippingService(IOptions<ShippingSettings> options) : IShipp
 
     public decimal CalculateShippingCost(Order order)
     {
+        ArgumentNullException.ThrowIfNull(order);
+
         return order.Items.Sum(i => i.WeightInKg * i.Quantity) * _costPerKg;
     }
 }
