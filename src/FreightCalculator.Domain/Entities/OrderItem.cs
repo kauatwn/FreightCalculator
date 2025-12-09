@@ -2,7 +2,7 @@
 
 namespace FreightCalculator.Domain.Entities;
 
-public class OrderItem
+public sealed class OrderItem
 {
     public const string ProductNameCannotBeEmpty = "Product name cannot be empty.";
     public const string PriceMustBeGreaterThanZero = "Price must be greater than zero.";

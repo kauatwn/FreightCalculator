@@ -2,7 +2,7 @@
 
 namespace FreightCalculator.Domain.Configuration;
 
-public class ShippingSettings
+public sealed class ShippingSettings
 {
     public const string SectionName = "Shipping";
 

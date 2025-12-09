@@ -3,7 +3,7 @@ using FreightCalculator.Domain.Enums;
 
 namespace FreightCalculator.Domain.Entities;
 
-public class Order : IAggregateRoot
+public sealed class Order : IAggregateRoot
 {
     public const string ItemCannotBeNull = "Item cannot be null.";
     public const string CustomerNameCannotBeEmpty = "Customer name cannot be empty.";

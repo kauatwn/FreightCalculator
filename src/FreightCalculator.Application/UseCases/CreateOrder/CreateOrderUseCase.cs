@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FreightCalculator.Application.UseCases.CreateOrder;
 
-public partial class CreateOrderUseCase(IShippingServiceFactory shippingFactory, ILogger<CreateOrderUseCase> logger) : ICreateOrderUseCase
+public sealed partial class CreateOrderUseCase(IShippingServiceFactory shippingFactory, ILogger<CreateOrderUseCase> logger) : ICreateOrderUseCase
 {
     private const int ProcessingStarted = 1;
     private const int ShippingCalculated = 2;
