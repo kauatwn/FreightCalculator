@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace FreightCalculator.Domain.Services.Shipping;
 
-public class ExpressShippingService(IOptions<ShippingSettings> options) : IShippingService
+public sealed class ExpressShippingService(IOptions<ShippingSettings> options) : IShippingService
 {
     private readonly decimal _costPerKg = options.Value.ExpressCostPerKg;
 

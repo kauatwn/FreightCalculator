@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace FreightCalculator.Domain.Services.Shipping;
 
-public class StandardShippingService(IOptions<ShippingSettings> options) : IShippingService
+public sealed class StandardShippingService(IOptions<ShippingSettings> options) : IShippingService
 {
     private readonly decimal _fixedFee = options.Value.StandardFixedFee;
 

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace FreightCalculator.Application.DTOs.Requests;
 
-public record CreateOrderRequest(
+public sealed record CreateOrderRequest(
     string CustomerName,
     [property: JsonConverter(typeof(JsonStringEnumConverter))]
     [property: JsonRequired]
