@@ -10,7 +10,7 @@ namespace FreightCalculator.API.Controllers;
 [ApiController]
 public partial class OrdersController(ILogger<OrdersController> logger) : ControllerBase
 {
-    private const int DomainValidationEventId = 100;
+    private const int ValidationEventId = 100;
     private const int UnexpectedErrorEventId = 500;
 
     [HttpPost]
@@ -23,9 +23,9 @@ public partial class OrdersController(ILogger<OrdersController> logger) : Contro
             OrderProcessedResponse response = useCase.Execute(request);
             return Ok(response);
         }
-        catch (DomainException ex)
+        catch (Exception ex) when (ex is DomainException or ArgumentException)
         {
-            LogDomainValidationFailed(ex.Message);
+            LogValidationFailed(ex.Message);
             return BadRequest(new { error = ex.Message });
         }
         catch (Exception ex)
@@ -35,8 +35,8 @@ public partial class OrdersController(ILogger<OrdersController> logger) : Contro
         }
     }
 
-    [LoggerMessage(EventId = DomainValidationEventId, Level = LogLevel.Warning, Message = "Domain validation failed: {Reason}")]
-    private partial void LogDomainValidationFailed(string reason);
+    [LoggerMessage(EventId = ValidationEventId, Level = LogLevel.Warning, Message = "Validation failed: {Reason}")]
+    private partial void LogValidationFailed(string reason);
 
     [LoggerMessage(EventId = UnexpectedErrorEventId, Level = LogLevel.Error, Message = "An unexpected error occurred while processing the order")]
     private partial void LogUnexpectedError(Exception ex);
