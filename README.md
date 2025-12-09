@@ -83,7 +83,7 @@ The solution follows the **Clean Architecture** principles to ensure separation 
 FreightCalculator/
 ├── src/
 │   ├── FreightCalculator.API/            # Entry point, Controllers, Configuration
-│   ├── FreightCalculator.Application/    # Use Cases (OrderService), Orchestration
+│   ├── FreightCalculator.Application/    # Use Cases (Vertical Slices), Orchestration, DTOs
 │   ├── FreightCalculator.Domain/         # Entities, Interfaces, Enums (Pure Logic)
 │   └── FreightCalculator.Infrastructure/ # Implementations (Services, Factory, Options)
 └── tests/
@@ -120,7 +120,7 @@ To avoid complex `if/else` chains for shipping logic, the **Strategy Pattern** w
 All business rules are verified through **xUnit** and **Moq**.
 
 - **Domain Tests:** Verify that Entities behave correctly in isolation (e.g., Total calculation, Validations).
-- **Application Tests:** Use Mocks to verify that the `OrderService` orchestrates the `ShippingFactory` and `ShippingService` correctly without relying on external infrastructure.
+- **Application Tests:** Use Mocks to verify that the `CreateOrderUseCase` orchestrates the `ShippingFactory` and `ShippingService` correctly without relying on external infrastructure.
 
 ### 4. CI/CD & Quality
 
