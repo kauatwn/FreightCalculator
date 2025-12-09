@@ -61,6 +61,27 @@ public class CreateOrderUseCaseTests
             ), Times.Once);
     }
 
+    [Fact(DisplayName = "Execute should throw ArgumentException when items list is empty")]
+    public void Execute_ShouldThrowArgumentException_WhenItemsListIsEmpty()
+    {
+        // Arrange
+        CreateOrderRequest request = new(
+            CustomerName: "John Doe",
+            ShippingMethod: ShippingMethod.Standard,
+            Items: []
+        );
+
+        // Act
+        void Act() => _sut.Execute(request);
+
+        // Assert
+        var exception = Assert.Throws<ArgumentException>(Act);
+        Assert.Equal("request", exception.ParamName);
+
+        _mockShippingFactory.Verify(f => f.GetService(It.IsAny<ShippingMethod>()), Times.Never);
+        _mockShippingService.Verify(s => s.CalculateShippingCost(It.IsAny<Order>()), Times.Never);
+    }
+
     [Fact(DisplayName = "Execute should throw ArgumentNullException when request is null")]
     public void Execute_ShouldThrowArgumentNullException_WhenRequestIsNull()
     {
@@ -73,5 +94,25 @@ public class CreateOrderUseCaseTests
 
         _mockShippingFactory.Verify(f => f.GetService(It.IsAny<ShippingMethod>()), Times.Never);
         _mockShippingService.Verify(s => s.CalculateShippingCost(It.IsAny<Order>()), Times.Never);
+    }
+
+    [Fact(DisplayName = "Execute should throw ArgumentException when items list is null")]
+    public void Execute_ShouldThrowArgumentException_WhenItemsListIsNull()
+    {
+        // Arrange
+        CreateOrderRequest request = new(
+            CustomerName: "John Doe",
+            ShippingMethod: ShippingMethod.Standard,
+            Items: null!
+        );
+
+        // Act
+        void Act() => _sut.Execute(request);
+
+        // Assert
+        var exception = Assert.Throws<ArgumentException>(Act);
+        Assert.Equal("request", exception.ParamName);
+
+        _mockShippingFactory.Verify(f => f.GetService(It.IsAny<ShippingMethod>()), Times.Never);
     }
 }
