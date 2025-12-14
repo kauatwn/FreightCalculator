@@ -1,4 +1,4 @@
-﻿using FreightCalculator.Domain.Common;
+﻿using FreightCalculator.Domain.Exceptions;
 
 namespace FreightCalculator.Domain.Entities;
 

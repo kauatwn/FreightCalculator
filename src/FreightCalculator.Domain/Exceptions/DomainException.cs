@@ -1,3 +1,3 @@
-﻿namespace FreightCalculator.Domain.Common;
+﻿namespace FreightCalculator.Domain.Exceptions;
 
 public class DomainException(string message) : Exception(message);
