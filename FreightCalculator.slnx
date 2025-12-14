@@ -6,8 +6,6 @@
     <Project Path="src/FreightCalculator.Infrastructure/FreightCalculator.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/FreightCalculator.Application.Tests/FreightCalculator.Application.Tests.csproj" />
-    <Project Path="tests/FreightCalculator.Domain.Tests/FreightCalculator.Domain.Tests.csproj" />
-    <Project Path="tests/FreightCalculator.Infrastructure.Tests/FreightCalculator.Infrastructure.Tests.csproj" Id="58843935-a1ff-4b13-9351-ab1fc49f4cba" />
+    <Project Path="tests/FreightCalculator.UnitTests/FreightCalculator.UnitTests.csproj" Id="52fbed63-34bb-4a95-89a7-84ecac2968f5" />
   </Folder>
 </Solution>
