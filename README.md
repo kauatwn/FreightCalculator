@@ -82,14 +82,12 @@ The solution follows the **Clean Architecture** principles to ensure separation 
 ```plaintext
 FreightCalculator/
 ├── src/
-│   ├── FreightCalculator.API/            # Entry point, Controllers, Configuration
-│   ├── FreightCalculator.Application/    # Use Cases (Vertical Slices), Orchestration, DTOs
-│   ├── FreightCalculator.Domain/         # Entities, Interfaces, Enums (Pure Logic)
-│   └── FreightCalculator.Infrastructure/ # Implementations (Services, Factory, Options)
+│   ├── FreightCalculator.API/              # Entry point, Controllers, Configuration
+│   ├── FreightCalculator.Application/      # Use Cases (Vertical Slices), Orchestration, DTOs
+│   ├── FreightCalculator.Domain/           # Entities, Interfaces, Enums (Pure Logic)
+│   └── FreightCalculator.Infrastructure/   # Implementations (Services, Factory, Options)
 └── tests/
-    ├── FreightCalculator.Application.Tests/
-    ├── FreightCalculator.Domain.Tests/
-    └── FreightCalculator.Infrastructure.Tests/
+    └── FreightCalculator.UnitTests/
 ```
 
 ## Architecture & Design Principles
