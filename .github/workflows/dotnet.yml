@@ -5,6 +5,7 @@ on:
     branches: ["master"]
   pull_request:
     branches: ["master"]
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 jobs:
@@ -35,8 +36,7 @@ jobs:
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
+          restore-keys: ${{ runner.os }}-nuget-
 
       - name: Cache SonarQube Cloud packages
         uses: actions/cache@v4
@@ -62,12 +62,17 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Begin SonarCloud Analysis
+      - name: Begin SonarQube Cloud Analysis
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"kauatwn_FreightCalculator" /o:"kauatwn" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.coverage.exclusions="**/Program.cs,**/Extensions/**,**/FreightCalculator.API/**"
+          ${{ runner.temp }}/scanner/dotnet-sonarscanner begin \
+          /k:"kauatwn_FreightCalculator" \
+          /o:"kauatwn" \
+          /d:sonar.token="$SONAR_TOKEN" \
+          /d:sonar.host.url="https://sonarcloud.io" \
+          /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
+          /d:sonar.coverage.exclusions="**/Program.cs,**/Extensions/**,**/FreightCalculator.API/**"
 
       - name: Build
         run: dotnet build --no-restore --configuration Release
@@ -75,12 +80,10 @@ jobs:
       - name: Test
         run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
 
-      - name: End SonarCloud Analysis
+      - name: End SonarQube Cloud Analysis
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"
+        run: ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"
 
       - name: Docker Build Check
         run: docker build -t freight-calculator:latest -f src/FreightCalculator.API/Dockerfile .
