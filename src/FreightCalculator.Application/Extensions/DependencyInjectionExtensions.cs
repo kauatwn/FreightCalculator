@@ -1,4 +1,4 @@
-﻿using FreightCalculator.Application.UseCases.CreateOrder;
+﻿using FreightCalculator.Application.UseCases.Orders.Create;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FreightCalculator.Application.Extensions;

@@ -3,7 +3,7 @@ using FreightCalculator.Domain.Interfaces;
 using FreightCalculator.Infrastructure.Services;
 using Moq;
 
-namespace FreightCalculator.Infrastructure.Tests.Services;
+namespace FreightCalculator.UnitTests.Infrastructure.Services;
 
 public class ShippingServiceFactoryTests
 {

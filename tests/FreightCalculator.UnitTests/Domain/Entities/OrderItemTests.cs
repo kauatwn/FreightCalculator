@@ -1,7 +1,7 @@
-﻿using FreightCalculator.Domain.Common;
-using FreightCalculator.Domain.Entities;
+﻿using FreightCalculator.Domain.Entities;
+using FreightCalculator.Domain.Exceptions;
 
-namespace FreightCalculator.Domain.Tests.Entities;
+namespace FreightCalculator.UnitTests.Domain.Entities;
 
 public class OrderItemTests
 {

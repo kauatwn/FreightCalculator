@@ -4,7 +4,7 @@ using FreightCalculator.Domain.Entities;
 using FreightCalculator.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace FreightCalculator.Application.UseCases.CreateOrder;
+namespace FreightCalculator.Application.UseCases.Orders.Create;
 
 public sealed partial class CreateOrderUseCase(IShippingServiceFactory shippingFactory, ILogger<CreateOrderUseCase> logger) : ICreateOrderUseCase
 {

@@ -1,7 +1,7 @@
 ﻿using FreightCalculator.Application.DTOs.Requests;
 using FreightCalculator.Application.DTOs.Responses;
-using FreightCalculator.Application.UseCases.CreateOrder;
-using FreightCalculator.Domain.Common;
+using FreightCalculator.Application.UseCases.Orders.Create;
+using FreightCalculator.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FreightCalculator.API.Controllers;

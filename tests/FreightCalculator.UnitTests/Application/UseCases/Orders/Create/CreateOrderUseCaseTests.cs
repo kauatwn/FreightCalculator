@@ -1,13 +1,13 @@
 ﻿using FreightCalculator.Application.DTOs.Requests;
 using FreightCalculator.Application.DTOs.Responses;
-using FreightCalculator.Application.UseCases.CreateOrder;
+using FreightCalculator.Application.UseCases.Orders.Create;
 using FreightCalculator.Domain.Entities;
 using FreightCalculator.Domain.Enums;
 using FreightCalculator.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace FreightCalculator.Application.Tests.UseCases.CreateOrder;
+namespace FreightCalculator.UnitTests.Application.UseCases.Orders.Create;
 
 public class CreateOrderUseCaseTests
 {

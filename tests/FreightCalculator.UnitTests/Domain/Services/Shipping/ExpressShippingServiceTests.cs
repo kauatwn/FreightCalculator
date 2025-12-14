@@ -4,7 +4,7 @@ using FreightCalculator.Domain.Enums;
 using FreightCalculator.Domain.Services.Shipping;
 using Microsoft.Extensions.Options;
 
-namespace FreightCalculator.Domain.Tests.Services.Shipping;
+namespace FreightCalculator.UnitTests.Domain.Services.Shipping;
 
 public class ExpressShippingServiceTests
 {
