@@ -5,6 +5,7 @@ using Moq;
 
 namespace FreightCalculator.UnitTests.Infrastructure.Services;
 
+[Trait("Category", "Unit")]
 public class ShippingServiceFactoryTests
 {
     private readonly Mock<Func<ShippingMethod, IShippingService>> _mockResolver = new();

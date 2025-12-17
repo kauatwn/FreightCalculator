@@ -8,7 +8,7 @@ namespace FreightCalculator.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public partial class OrdersController(ILogger<OrdersController> logger) : ControllerBase
+public sealed partial class OrdersController(ILogger<OrdersController> logger) : ControllerBase
 {
     private const int ValidationEventId = 100;
     private const int UnexpectedErrorEventId = 500;

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace FreightCalculator.UnitTests.Domain.Services.Shipping;
 
+[Trait("Category", "Unit")]
 public class StandardShippingServiceTests
 {
     private readonly StandardShippingService _sut;

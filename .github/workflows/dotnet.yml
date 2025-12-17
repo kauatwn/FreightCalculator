@@ -13,6 +13,10 @@ jobs:
     name: Build, Test and Analyze
     runs-on: ubuntu-latest
 
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      COVERAGE_ARGS: '--collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover'
+
     permissions:
       contents: read # Access to check out code and install dependencies
 
@@ -63,8 +67,6 @@ jobs:
         run: dotnet restore
 
       - name: Begin SonarQube Cloud Analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ${{ runner.temp }}/scanner/dotnet-sonarscanner begin \
           /k:"kauatwn_FreightCalculator" \
@@ -77,12 +79,10 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
-      - name: Test
-        run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+      - name: Run Unit Tests
+        run: dotnet test --no-build --configuration Release --filter "Category=Unit" ${{ env.COVERAGE_ARGS }}
 
       - name: End SonarQube Cloud Analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"
 
       - name: Docker Build Check
