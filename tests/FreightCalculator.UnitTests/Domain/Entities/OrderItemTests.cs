@@ -3,6 +3,7 @@ using FreightCalculator.Domain.Exceptions;
 
 namespace FreightCalculator.UnitTests.Domain.Entities;
 
+[Trait("Category", "Unit")]
 public class OrderItemTests
 {
     [Fact(DisplayName = "Total should calculate price multiplied by quantity")]

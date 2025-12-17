@@ -9,6 +9,7 @@ using Moq;
 
 namespace FreightCalculator.UnitTests.Application.UseCases.Orders.Create;
 
+[Trait("Category", "Unit")]
 public class CreateOrderUseCaseTests
 {
     private readonly Mock<IShippingServiceFactory> _mockShippingFactory = new();

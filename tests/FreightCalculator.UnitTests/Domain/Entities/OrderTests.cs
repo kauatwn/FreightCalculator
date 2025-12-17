@@ -4,6 +4,7 @@ using FreightCalculator.Domain.Exceptions;
 
 namespace FreightCalculator.UnitTests.Domain.Entities;
 
+[Trait("Category", "Unit")]
 public class OrderTests
 {
     [Fact(DisplayName = "Constructor should initialize correctly when data is valid")]
