@@ -73,7 +73,8 @@ jobs:
           /o:"kauatwn" \
           /d:sonar.token="$SONAR_TOKEN" \
           /d:sonar.host.url="https://sonarcloud.io" \
-          /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+          /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
+          /d:sonar.coverage.exclusions="**/FreightCalculator.API/**"
 
       - name: Build
         run: dotnet build --no-restore --configuration Release
