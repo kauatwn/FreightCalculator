@@ -5,9 +5,11 @@ using FreightCalculator.Domain.Services.Shipping;
 using FreightCalculator.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FreightCalculator.Infrastructure.Extensions;
 
+[ExcludeFromCodeCoverage(Justification = "Pure dependency injection configuration")]
 public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
