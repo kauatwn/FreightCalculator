@@ -1,6 +1,9 @@
 using FreightCalculator.Application.Extensions;
 using FreightCalculator.Infrastructure.Extensions;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+
+[assembly: ExcludeFromCodeCoverage(Justification = "API layer is a thin adapter without business logic. Integration tests are not present in this solution.")]
 
 var builder = WebApplication.CreateBuilder(args);
 
