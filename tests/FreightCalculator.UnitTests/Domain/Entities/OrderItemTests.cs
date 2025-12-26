@@ -56,7 +56,7 @@ public class OrderItemTests
     public void Constructor_ShouldThrowDomainException_WhenWeightIsInvalid(decimal invalidWeight)
     {
         // Act
-        void Act() => _ = new OrderItem(productName: "Valid Name", price: 10.00m, weightInKg: invalidWeight, quantity: 1);
+        void Act() => _ = new OrderItem(productName: "Valid Name", price: 10.00m, invalidWeight, quantity: 1);
 
         // Assert
         var exception = Assert.Throws<DomainException>(Act);
@@ -69,7 +69,7 @@ public class OrderItemTests
     public void Constructor_ShouldThrowDomainException_WhenQuantityIsInvalid(int invalidQuantity)
     {
         // Act
-        void Act() => _ = new OrderItem(productName: "Valid Name", price: 10.00m, weightInKg: 1m, quantity: invalidQuantity);
+        void Act() => _ = new OrderItem(productName: "Valid Name", price: 10.00m, weightInKg: 1m, invalidQuantity);
 
         // Assert
         var exception = Assert.Throws<DomainException>(Act);
