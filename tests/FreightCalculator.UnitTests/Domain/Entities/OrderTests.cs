@@ -10,41 +10,57 @@ public class OrderTests
     [Fact(DisplayName = "Constructor should initialize correctly when data is valid")]
     public void Constructor_ShouldInitializeCorrectly_WhenDataIsValid()
     {
+        // Arrange
+        List<OrderItem> items = [new OrderItem(productName: "Item 1", price: 10m, weightInKg: 1m, quantity: 1)];
+
         // Act
-        Order order = new(customerName: "John Doe", shippingMethod: ShippingMethod.Standard);
+        Order order = new(customerName: "John Doe", ShippingMethod.Standard, items);
 
         // Assert
         Assert.NotEqual(Guid.Empty, order.Id);
         Assert.Equal("John Doe", order.CustomerName);
         Assert.Equal(ShippingMethod.Standard, order.ShippingMethod);
         Assert.NotNull(order.Items);
-        Assert.Empty(order.Items);
-        Assert.Equal(0.00m, order.Total);
+        Assert.Single(order.Items);
+        Assert.Equal(10.00m, order.Total);
     }
 
     [Fact(DisplayName = "Constructor should throw exception when customer name is empty")]
     public void Constructor_ShouldThrowDomainException_WhenCustomerNameIsEmpty()
     {
+        // Arrange
+        List<OrderItem> items = [new OrderItem(productName: "Item 1", price: 10m, weightInKg: 1m, quantity: 1)];
+
         // Act
-        static void Act() => _ = new Order(customerName: string.Empty, shippingMethod: ShippingMethod.Standard);
+        void Act() => _ = new Order(customerName: string.Empty, ShippingMethod.Standard, items);
 
         // Assert
         var exception = Assert.Throws<DomainException>(Act);
         Assert.Equal(Order.CustomerNameCannotBeEmpty, exception.Message);
     }
 
+    [Fact(DisplayName = "Constructor should throw exception when items list is empty")]
+    public void Constructor_ShouldThrowDomainException_WhenItemsListIsEmpty()
+    {
+        // Act
+        static void Act() => _ = new Order(customerName: "John Doe", shippingMethod: ShippingMethod.Standard, items: []);
+
+        // Assert
+        var exception = Assert.Throws<DomainException>(Act);
+        Assert.Equal(Order.OrderMustHaveItems, exception.Message);
+    }
+
     [Fact(DisplayName = "AddItem should update total and collection correctly")]
     public void AddItem_ShouldUpdateTotalAndCollection_WhenItemsAreAdded()
     {
         // Arrange
-        Order order = new(customerName: "Client A", shippingMethod: ShippingMethod.Standard);
+        OrderItem item = new (productName: "Initial Item", price: 10.00m, weightInKg: 1m, quantity: 1);
+        Order order = new(customerName: "Client A", shippingMethod: ShippingMethod.Standard, items: [item]);
 
-        OrderItem item1 = new(productName: "Item 1", price: 10.00m, weightInKg: 1m, quantity: 1);
-        OrderItem item2 = new(productName: "Item 2", price: 20.00m, weightInKg: 1m, quantity: 2);
+        OrderItem newItem = new (productName: "New Item", price: 20.00m, weightInKg: 1m, quantity: 2);
 
         // Act
-        order.AddItem(item1);
-        order.AddItem(item2);
+        order.AddItem(newItem);
 
         // Assert
         Assert.Equal(2, order.Items.Count);
@@ -52,16 +68,17 @@ public class OrderTests
     }
 
     [Fact(DisplayName = "AddItem should throw exception when item is null")]
-    public void AddItem_ShouldThrowDomainException_WhenItemIsNull()
+    public void AddItem_ShouldThrowArgumentNullException_WhenItemIsNull()
     {
         // Arrange
-        Order order = new(customerName: "Client A", shippingMethod: ShippingMethod.Standard);
+        List<OrderItem> items = [new OrderItem(productName: "Item 1", price: 10m, weightInKg: 1m, quantity: 1)];
+        Order order = new(customerName: "Client A", shippingMethod: ShippingMethod.Standard, items);
 
         // Act
         void Act() => order.AddItem(null!);
 
         // Assert
-        var exception = Assert.Throws<DomainException>(Act);
-        Assert.Equal(Order.ItemCannotBeNull, exception.Message);
+        var exception = Assert.Throws<ArgumentNullException>(Act);
+        Assert.Equal("item", exception.ParamName);
     }
 }
