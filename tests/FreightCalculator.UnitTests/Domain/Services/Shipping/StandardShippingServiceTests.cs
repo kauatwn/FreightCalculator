@@ -23,9 +23,12 @@ public class StandardShippingServiceTests
     public void CalculateShippingCost_ShouldReturnFixedFee_WhenOrderHasItems()
     {
         // Arrange
-        Order order = new(customerName: "Test", shippingMethod: ShippingMethod.Standard);
+        List<OrderItem> items =
+        [
+            new OrderItem(productName: "Item A", price: 10.00m, weightInKg: 0.5m, quantity: 5)
+        ];
 
-        order.AddItem(new OrderItem(productName: "Item A", price: 10.00m, weightInKg: 0.5m, quantity: 5));
+        Order order = new(customerName: "Test", shippingMethod: ShippingMethod.Standard, items: items);
 
         // Act
         decimal cost = _sut.CalculateShippingCost(order);
