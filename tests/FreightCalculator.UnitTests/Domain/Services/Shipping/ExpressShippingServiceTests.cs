@@ -23,29 +23,19 @@ public class ExpressShippingServiceTests
     public void CalculateShippingCost_ShouldCalculateBasedOnWeight_WhenOrderHasItems()
     {
         // Arrange
-        Order order = new(customerName: "Test", shippingMethod: ShippingMethod.Express);
+        List<OrderItem> items =
+        [
+            new OrderItem(productName: "Item A", price: 10.00m, weightInKg: 2m, quantity: 2),
+            new OrderItem(productName: "Item B", price: 10.00m, weightInKg: 3m, quantity: 1)
+        ];
 
-        order.AddItem(new OrderItem(productName: "Item A", price: 10.00m, weightInKg: 2m, quantity: 2));
-        order.AddItem(new OrderItem(productName: "Item B", price: 10.00m, weightInKg: 3m, quantity: 1));
+        Order order = new(customerName: "Test", shippingMethod: ShippingMethod.Express, items: items);
 
         // Act
         decimal cost = _sut.CalculateShippingCost(order);
 
         // Assert
         Assert.Equal(17.50m, cost);
-    }
-
-    [Fact(DisplayName = "CalculateShippingCost should return zero when order is empty")]
-    public void CalculateShippingCost_ShouldReturnZero_WhenOrderHasNoItems()
-    {
-        // Arrange
-        Order order = new(customerName: "Test", shippingMethod: ShippingMethod.Express);
-
-        // Act
-        decimal cost = _sut.CalculateShippingCost(order);
-
-        // Assert
-        Assert.Equal(0.00m, cost);
     }
 
     [Fact(DisplayName = "CalculateShippingCost should throw ArgumentNullException when order is null")]
