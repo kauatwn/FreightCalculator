@@ -133,4 +133,24 @@ public class CreateOrderUseCaseTests
 
         _mockShippingFactory.Verify(f => f.GetService(It.IsAny<ShippingMethod>()), Times.Never);
     }
+
+    [Fact(DisplayName = "Execute should throw ValidationException when ShippingMethod is null")]
+    public void Execute_ShouldThrowValidationException_WhenShippingMethodIsNull()
+    {
+        // Arrange
+        CreateOrderRequest request = new(
+            CustomerName: "John Doe",
+            ShippingMethod: null,
+            Items: [new CreateOrderItemRequest(ProductName: "Item 1", Price: 10.00m, WeightInKg: 1m, Quantity: 1)]);
+
+        // Act
+        void Act() => _sut.Execute(request);
+
+        // Assert
+        var exception = Assert.Throws<ValidationException>(Act);
+        Assert.Equal(CreateOrderUseCase.ShippingMethodRequired, exception.Message);
+
+        _mockShippingFactory.Verify(f => f.GetService(It.IsAny<ShippingMethod>()), Times.Never);
+        _mockShippingService.Verify(s => s.CalculateShippingCost(It.IsAny<Order>()), Times.Never);
+    }
 }
