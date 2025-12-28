@@ -50,6 +50,17 @@ public class OrderTests
         Assert.Equal(Order.OrderMustHaveItems, exception.Message);
     }
 
+    [Fact(DisplayName = "Constructor should throw DomainException when items argument is null")]
+    public void Constructor_ShouldThrowDomainException_WhenItemsIsNull()
+    {
+        // Act
+        static void Act() => _ = new Order(customerName: "John Doe", ShippingMethod.Standard, items: null!);
+
+        // Assert
+        var exception = Assert.Throws<DomainException>(Act);
+        Assert.Equal(Order.OrderMustHaveItems, exception.Message);
+    }
+
     [Fact(DisplayName = "AddItem should update total and collection correctly")]
     public void AddItem_ShouldUpdateTotalAndCollection_WhenItemsAreAdded()
     {

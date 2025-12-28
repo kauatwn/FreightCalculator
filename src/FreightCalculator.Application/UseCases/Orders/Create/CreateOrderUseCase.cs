@@ -16,6 +16,7 @@ public sealed partial class CreateOrderUseCase(
     private const int OrderProcessed = 3;
 
     public const string ShippingMethodRequired = "Shipping method is required.";
+    public const string OrderMustHaveItems = "The order must contain at least one item.";
 
     public OrderProcessedResponse Execute(CreateOrderRequest request)
     {
@@ -26,12 +27,16 @@ public sealed partial class CreateOrderUseCase(
             throw new ValidationException(ShippingMethodRequired);
         }
 
-        List<OrderItem> items = [.. request.Items
-            .Select(i => new OrderItem(
-                i.ProductName,
-                i.Price,
-                i.WeightInKg,
-                i.Quantity))];
+        if (request.Items is null || request.Items.Count == 0)
+        {
+            throw new ValidationException(OrderMustHaveItems);
+        }
+
+        IEnumerable<OrderItem> items = request.Items.Select(i => new OrderItem(
+            i.ProductName,
+            i.Price,
+            i.WeightInKg,
+            i.Quantity));
 
         Order order = new(request.CustomerName, request.ShippingMethod.Value, items);
 
