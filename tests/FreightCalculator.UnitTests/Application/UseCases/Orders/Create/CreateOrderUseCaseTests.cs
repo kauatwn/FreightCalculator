@@ -61,27 +61,28 @@ public class CreateOrderUseCaseTests
                 o.Items.Count == 1)), Times.Once);
     }
 
-    [Fact(DisplayName = "Execute should throw ValidationException when ShippingMethod is null")]
-    public void Execute_ShouldThrowValidationException_WhenShippingMethodIsNull()
+    [Fact(DisplayName = "Execute should throw ValidationException when items list is null")]
+    public void Execute_ShouldThrowValidationException_WhenItemsListIsNull()
     {
         // Arrange
         CreateOrderRequest request = new(
             CustomerName: "John Doe",
-            ShippingMethod: null,
-            Items: [new CreateOrderItemRequest("Item 1", 10m, 1m, 1)]);
+            ShippingMethod: ShippingMethod.Standard,
+            Items: null!);
 
         // Act
         void Act() => _sut.Execute(request);
 
         // Assert
         var exception = Assert.Throws<ValidationException>(Act);
-        Assert.Equal(CreateOrderUseCase.ShippingMethodRequired, exception.Message);
+
+        Assert.Equal(CreateOrderUseCase.OrderMustHaveItems, exception.Message);
 
         _mockShippingFactory.Verify(f => f.GetService(It.IsAny<ShippingMethod>()), Times.Never);
     }
 
-    [Fact(DisplayName = "Execute should throw DomainException when items list is empty")]
-    public void Execute_ShouldThrowDomainException_WhenItemsListIsEmpty()
+    [Fact(DisplayName = "Execute should throw ValidationException when items list is empty")]
+    public void Execute_ShouldThrowValidationException_WhenItemsListIsEmpty()
     {
         // Arrange
         CreateOrderRequest request = new(
@@ -93,8 +94,8 @@ public class CreateOrderUseCaseTests
         void Act() => _sut.Execute(request);
 
         // Assert
-        var exception = Assert.Throws<DomainException>(Act);
-        Assert.Equal(Order.OrderMustHaveItems, exception.Message);
+        var exception = Assert.Throws<ValidationException>(Act);
+        Assert.Equal(CreateOrderUseCase.OrderMustHaveItems, exception.Message);
 
         _mockShippingFactory.Verify(f => f.GetService(It.IsAny<ShippingMethod>()), Times.Never);
         _mockShippingService.Verify(s => s.CalculateShippingCost(It.IsAny<Order>()), Times.Never);
@@ -127,8 +128,8 @@ public class CreateOrderUseCaseTests
         void Act() => _sut.Execute(request);
 
         // Assert
-        var exception = Assert.Throws<ArgumentNullException>(Act);
-        Assert.Equal("source", exception.ParamName);
+        var exception = Assert.Throws<ValidationException>(Act);
+        Assert.Equal(CreateOrderUseCase.OrderMustHaveItems, exception.Message);
 
         _mockShippingFactory.Verify(f => f.GetService(It.IsAny<ShippingMethod>()), Times.Never);
     }
