@@ -2,7 +2,6 @@
 using FreightCalculator.Domain.Entities;
 using FreightCalculator.Domain.Enums;
 using FreightCalculator.Domain.Services.Shipping;
-using Microsoft.Extensions.Options;
 
 namespace FreightCalculator.UnitTests.Domain.Services.Shipping;
 
@@ -22,9 +21,7 @@ public class StandardShippingServiceTests
             FreeShippingThreshold = FreeShippingThreshold
         };
 
-        IOptions<ShippingSettings> options = Options.Create(settings);
-
-        _sut = new StandardShippingService(options);
+        _sut = new StandardShippingService(settings);
     }
 
     [Fact(DisplayName = "CalculateShippingCost should return fixed fee when total is below threshold")]
