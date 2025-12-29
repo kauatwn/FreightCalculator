@@ -18,15 +18,17 @@ public sealed class Order : IAggregateRoot
 
     public decimal Total => _items.Sum(i => i.Total);
 
-    public Order(string customerName, ShippingMethod shippingMethod, List<OrderItem> items)
+    public Order(string customerName, ShippingMethod shippingMethod, IEnumerable<OrderItem> items)
     {
-        ValidateDomain(customerName, items);
+        List<OrderItem> orderItems = [.. items ?? []];
+
+        ValidateDomain(customerName, orderItems);
 
         Id = Guid.NewGuid();
         CustomerName = customerName;
         ShippingMethod = shippingMethod;
 
-        _items.AddRange(items);
+        _items.AddRange(orderItems);
     }
 
     public void AddItem(OrderItem item)
@@ -43,7 +45,7 @@ public sealed class Order : IAggregateRoot
             throw new DomainException(CustomerNameCannotBeEmpty);
         }
 
-        if (items is null || items.Count == 0)
+        if (items.Count == 0)
         {
             throw new DomainException(OrderMustHaveItems);
         }
