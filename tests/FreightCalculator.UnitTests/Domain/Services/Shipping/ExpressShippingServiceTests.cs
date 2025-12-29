@@ -9,11 +9,13 @@ namespace FreightCalculator.UnitTests.Domain.Services.Shipping;
 [Trait("Category", "Unit")]
 public class ExpressShippingServiceTests
 {
+    private const decimal ExpressCostPerKg = 2.50m;
+
     private readonly ExpressShippingService _sut;
 
     public ExpressShippingServiceTests()
     {
-        ShippingSettings settings = new() { ExpressCostPerKg = 2.50m };
+        ShippingSettings settings = new() { ExpressCostPerKg = ExpressCostPerKg };
         IOptions<ShippingSettings> options = Options.Create(settings);
 
         _sut = new ExpressShippingService(options);
@@ -31,11 +33,13 @@ public class ExpressShippingServiceTests
 
         Order order = new(customerName: "Test", shippingMethod: ShippingMethod.Express, items: items);
 
+        decimal expectedCost = 17.50m;
+
         // Act
         decimal cost = _sut.CalculateShippingCost(order);
 
         // Assert
-        Assert.Equal(17.50m, cost);
+        Assert.Equal(expectedCost, cost);
     }
 
     [Fact(DisplayName = "CalculateShippingCost should throw ArgumentNullException when order is null")]
