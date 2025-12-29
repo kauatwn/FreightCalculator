@@ -30,8 +30,8 @@ public static class DependencyInjectionExtensions
 
     private static void AddServices(IServiceCollection services)
     {
-        services.AddKeyedScoped<IShippingService, StandardShippingService>(ShippingMethod.Standard);
-        services.AddKeyedScoped<IShippingService, ExpressShippingService>(ShippingMethod.Express);
+        services.AddKeyedTransient<IShippingService, StandardShippingService>(ShippingMethod.Standard);
+        services.AddKeyedTransient<IShippingService, ExpressShippingService>(ShippingMethod.Express);
 
         services.AddScoped<IShippingServiceFactory, ShippingServiceFactory>(provider =>
         {
