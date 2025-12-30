@@ -1,14 +1,13 @@
 ﻿using FreightCalculator.Domain.Configuration;
 using FreightCalculator.Domain.Entities;
 using FreightCalculator.Domain.Interfaces;
-using Microsoft.Extensions.Options;
 
 namespace FreightCalculator.Domain.Services.Shipping;
 
-public sealed class StandardShippingService(IOptions<ShippingSettings> options) : IShippingService
+public sealed class StandardShippingService(ShippingSettings settings) : IShippingService
 {
-    private readonly decimal _fixedFee = options.Value.StandardFixedFee;
-    private readonly decimal _freeShippingThreshold = options.Value.FreeShippingThreshold;
+    private readonly decimal _fixedFee = settings.StandardFixedFee;
+    private readonly decimal _freeShippingThreshold = settings.FreeShippingThreshold;
 
     public decimal CalculateShippingCost(Order order)
     {

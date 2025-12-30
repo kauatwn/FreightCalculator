@@ -1,13 +1,12 @@
 ﻿using FreightCalculator.Domain.Configuration;
 using FreightCalculator.Domain.Entities;
 using FreightCalculator.Domain.Interfaces;
-using Microsoft.Extensions.Options;
 
 namespace FreightCalculator.Domain.Services.Shipping;
 
-public sealed class ExpressShippingService(IOptions<ShippingSettings> options) : IShippingService
+public sealed class ExpressShippingService(ShippingSettings settings) : IShippingService
 {
-    private readonly decimal _costPerKg = options.Value.ExpressCostPerKg;
+    private readonly decimal _costPerKg = settings.ExpressCostPerKg;
 
     public decimal CalculateShippingCost(Order order)
     {
