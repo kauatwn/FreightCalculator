@@ -5,6 +5,7 @@ using FreightCalculator.Domain.Services.Shipping;
 using FreightCalculator.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
 
 namespace FreightCalculator.Infrastructure.Extensions;
@@ -26,6 +27,8 @@ public static class DependencyInjectionExtensions
             .Bind(configuration.GetSection(ShippingSettings.SectionName))
             .ValidateDataAnnotations()
             .ValidateOnStart();
+
+        services.AddSingleton(provider => provider.GetRequiredService<IOptions<ShippingSettings>>().Value);
     }
 
     private static void AddServices(IServiceCollection services)
