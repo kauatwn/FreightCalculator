@@ -94,6 +94,11 @@ FreightCalculator/
 
 This repository prioritizes **software engineering quality** over simple functionality, following strict development guidelines.
 
+> [!NOTE]
+> **Documentation Strategy:** This project deliberately omits extensive OpenAPI/Swagger documentation to maintain focus on **Domain Logic** and **Unit Testing purity**.
+>
+> For a production-ready API reference, see the [InventoryManager](https://github.com/kauatwn/InventoryManager) repository.
+
 ### 1. Domain-Driven Design (DDD Lite)
 
 The core logic resides entirely within the `Domain` layer.
