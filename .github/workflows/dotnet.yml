@@ -3,20 +3,9 @@ name: CI (Build, Test, Analyze & Docker)
 on:
   push:
     branches: ["master"]
-    paths-ignore:
-      - "**.md"
-      - "docs/**"
-      - ".gitignore"
-      - "LICENSE"
 
   pull_request:
     branches: ["master"]
-    paths-ignore:
-      - "**.md"
-      - "docs/**"
-      - ".gitignore"
-      - "LICENSE"
-
     types: [opened, synchronize, reopened]
   workflow_dispatch:
 
