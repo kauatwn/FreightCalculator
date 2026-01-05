@@ -14,10 +14,10 @@ public sealed partial class OrdersController(ILogger<OrdersController> logger) :
     private const int UnexpectedErrorEventId = 500;
 
     [HttpPost]
-    [ProducesResponseType<OrderProcessedResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-    public IActionResult Create(ICreateOrderUseCase useCase, CreateOrderRequest request)
+    public ActionResult<OrderProcessedResponse> Create(ICreateOrderUseCase useCase, CreateOrderRequest request)
     {
         try
         {
